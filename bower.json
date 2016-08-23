@@ -3,5 +3,6 @@
   "version": "1.0.0",
   "dependencies": {
     "vue": "^1.0.26"
-  }
+  },
+  "main": "dist/vue-keyboard.js"
 }

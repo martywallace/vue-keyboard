@@ -1,5 +1,5 @@
-(function() {
-	window.Keyboard = Vue.component('keyboard', Vue.extend({
+(() => {
+	window.VueKeyboard = Vue.component('keyboard', Vue.extend({
 		template: '<div class="keyboard"><div v-for="row in renderChars()"><button v-for="char in row" :class="char.class" @click="char.action">{{ char.value }}</button></div></div>',
 
 		props: {
@@ -14,20 +14,20 @@
 		},
 
 		methods: {
-			renderChars: function() {
-				var lines = this.chars.split('|');
+			renderChars() {
+				let lines = this.chars.split('|');
 
-				return lines.map(function(chars) {
-					var stream = chars.split('');
-					var buttons = [];
-					var token = null;
+				return lines.map((chars) => {
+					let stream = chars.split('');
+					let buttons = [];
+					let token = null;
 
-					stream.forEach(function(char) {
+					stream.forEach((char) => {
 						if (char === '{') {
 							token = '';
 						} else if (char === '}') {
-							var command = (/(\w+):(\w+)/g).exec(token);
-							var action = null;
+							let command = (/(\w+):(\w+)/g).exec(token);
+							let action = null;
 
 							if (this.hasOwnProperty(command[2])) {
 								action = this[command[2]].bind(this);
@@ -52,25 +52,25 @@
 								});
 							}
 						}
-					}, this);
+					});
 
 					return buttons;
-				}, this);
+				});
 			},
 
-			append: function(char) {
+			append(char) {
 				this.value += char;
 			},
 
-			backspace: function() {
+			backspace() {
 				this.value = this.value.slice(0, this.value.length - 1);
 			},
 
-			space: function() {
+			space() {
 				this.value += ' ';
 			},
 
-			clear: function() {
+			clear() {
 				this.value = '';
 			}
 		}
