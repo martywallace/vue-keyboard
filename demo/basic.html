@@ -5,7 +5,7 @@
 		<title>Keyboard Demo</title>
 	</head>
 	<body>
-		<keyboard chars="qwertyuiop{clear:clear}|asdfghjkl{backspace:backspace}|zxcvbnm|{space:space}" :value.sync="input"></keyboard>
+		<keyboard chars="qwertyuiop{clear:clear}|asdfghjkl{backspace:backspace}|zxcvbnm|{space:space}{test:test}" :value.sync="input"></keyboard>
 		<p>{{ input }}</p>
 
 		<script src="../bower_components/vue/dist/vue.min.js"></script>
@@ -14,7 +14,14 @@
 		<script>
 			var app = new Vue({
 				el: 'body',
-				input: ''
+				data: {
+					input: ''
+				},
+				events: {
+					test: function(keyboard) {
+						console.log(keyboard.value);
+					}
+				}
 			});
 		</script>
 	</body>

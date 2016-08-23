@@ -27,10 +27,17 @@
 							token = '';
 						} else if (char === '}') {
 							var command = (/(\w+):(\w+)/g).exec(token);
+							var action = null;
+
+							if (this.hasOwnProperty(command[2])) {
+								action = this[command[2]].bind(this);
+							} else {
+								action = this.$dispatch.bind(this, command[2], this);
+							}
 
 							buttons.push({
 								class: 'action-' + command[2].replace(/\s+/g, '-').toLowerCase(),
-								action: this[command[2]].bind(this),
+								action: action,
 								value: command[1]
 							});
 							
