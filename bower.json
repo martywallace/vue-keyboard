@@ -1,0 +1,7 @@
+{
+  "name": "vue-keyboard",
+  "version": "1.0.0",
+  "dependencies": {
+    "vue": "^1.0.26"
+  }
+}
