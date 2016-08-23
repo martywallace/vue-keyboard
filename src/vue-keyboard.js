@@ -29,7 +29,7 @@
 							var command = (/(\w+):(\w+)/g).exec(token);
 
 							buttons.push({
-								class: 'special ' + command[1],
+								class: 'action-' + command[2].replace(/\s+/g, '-').toLowerCase(),
 								action: this[command[2]].bind(this),
 								value: command[1]
 							});
