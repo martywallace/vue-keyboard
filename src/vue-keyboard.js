@@ -1,6 +1,8 @@
 (() => {
 	window.VueKeyboard = Vue.component('keyboard', {
 		template: (() => {
+			// For this to work correctly, the delimiters need to be changed before the component is
+			// registered on the page.
 			const a =  Vue.config.delimiters[0];
 			const b =  Vue.config.delimiters[1];
 
@@ -66,20 +68,25 @@
 				});
 			},
 
+			mutate(value) {
+				this.value = value;
+				this.$dispatch('mutate', this);
+			},
+
 			append(char) {
-				this.value += char;
+				this.mutate(this.value + char);
 			},
 
 			backspace() {
-				this.value = this.value.slice(0, this.value.length - 1);
+				this.mutate(this.value.slice(0, this.value.length - 1));
 			},
 
 			space() {
-				this.value += ' ';
+				this.append(' ');
 			},
 
 			clear() {
-				this.value = '';
+				this.mutate('');
 			}
 		}
 	});

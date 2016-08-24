@@ -5,11 +5,16 @@
 		<title>Keyboard Demo</title>
 	</head>
 	<body>
-		<keyboard chars="qwertyuiop{clear:clear}|asdfghjkl{backspace}|zxcvbnm|{space:space}{test:test}" :value.sync="input"></keyboard>
+		<keyboard chars="qwertyuiop{backspace:backspace}|asdfghjkl|zxcvbnm|{space:space}{custom:custom}" :value.sync="input"></keyboard>
 		<p>${ input }</p>
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.min.js"></script>
-		<script>Vue.config.delimiters = ['${', '}'];</script>
+		<script>
+			// Need to have this here so the Keyboard component will know what the delimiters should be. See:
+			// http://stackoverflow.com/questions/39112541/correct-way-to-reference-up-to-date-vue-delimiters-in-a-component
+			// https://github.com/vuejs/vue/issues/918
+			Vue.config.delimiters = ['${', '}'];
+		</script>
 		<script src="../dist/vue-keyboard.js"></script>
 
 		<script>
@@ -19,8 +24,12 @@
 					input: ''
 				},
 				events: {
-					test: function(keyboard) {
-						console.log(keyboard.value);
+					mutate: function(keyboard) {
+						// Limit to 16 chars.
+						keyboard.value = keyboard.value.slice(0, 16);
+					},
+					custom: function(keyboard) {
+						console.log('Custom button pressed. The current value is ' + keyboard.value);
 					}
 				}
 			});
