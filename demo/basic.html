@@ -5,10 +5,11 @@
 		<title>Keyboard Demo</title>
 	</head>
 	<body>
-		<keyboard chars="qwertyuiop{clear:clear}|asdfghjkl{backspace:backspace}|zxcvbnm|{space:space}{test:test}" :value.sync="input"></keyboard>
-		<p>{{ input }}</p>
+		<keyboard chars="qwertyuiop{clear:clear}|asdfghjkl{backspace}|zxcvbnm|{space:space}{test:test}" :value.sync="input"></keyboard>
+		<p>${ input }</p>
 
-		<script src="../bower_components/vue/dist/vue.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.min.js"></script>
+		<script>Vue.config.delimiters = ['${', '}'];</script>
 		<script src="../dist/vue-keyboard.js"></script>
 
 		<script>

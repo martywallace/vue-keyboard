@@ -1,6 +1,11 @@
 (() => {
-	window.VueKeyboard = Vue.component('keyboard', Vue.extend({
-		template: '<div class="keyboard"><div v-for="row in renderChars()"><button v-for="char in row" :class="char.class" @click="char.action">{{ char.value }}</button></div></div>',
+	window.VueKeyboard = Vue.component('keyboard', {
+		template: (() => {
+			const a =  Vue.config.delimiters[0];
+			const b =  Vue.config.delimiters[1];
+
+			return '<div class="keyboard"><div v-for="row in renderChars()"><button v-for="btn in row" :class="btn.class" @click="btn.action">' + a + ' btn.value ' + b + '</button></div></div>';
+		})(),
 
 		props: {
 			chars: {
@@ -26,19 +31,21 @@
 						if (char === '{') {
 							token = '';
 						} else if (char === '}') {
-							let command = (/(\w+):(\w+)/g).exec(token);
-							let action = null;
+							let command = token.split(':');
+							let text = command.length > 1 ? command[0] : '';
+							let action = command.length > 1 ? command[1] : command[0];
+							let method = null;
 
-							if (this.hasOwnProperty(command[2])) {
-								action = this[command[2]].bind(this);
+							if (this.hasOwnProperty(action)) {
+								method = this[action].bind(this);
 							} else {
-								action = this.$dispatch.bind(this, command[2], this);
+								method = this.$dispatch.bind(this, action, this);
 							}
 
 							buttons.push({
-								class: 'action-' + command[2].replace(/\s+/g, '-').toLowerCase(),
-								action: action,
-								value: command[1]
+								class: 'action-' + action.replace(/\s+/g, '-').toLowerCase(),
+								action: method,
+								value: text
 							});
 							
 							token = null;
@@ -47,6 +54,7 @@
 								token += char;
 							} else {
 								buttons.push({
+									class: 'char-' + char,
 									action: this.append.bind(this, char),
 									value: char
 								});
@@ -74,5 +82,5 @@
 				this.value = '';
 			}
 		}
-	}));
+	});
 })();
