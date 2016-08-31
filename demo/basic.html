@@ -5,7 +5,7 @@
 		<title>Keyboard Demo</title>
 	</head>
 	<body>
-		<keyboard chars="qwertyuiop{backspace:backspace}|asdfghjkl|zxcvbnm|{space:space}{custom:custom}" :value.sync="input"></keyboard>
+		<keyboard chars="qwertyuiop{backspace:backspace}|asdfghjkl|zxcvbnm|{space:space}{custom:custom}" :maxlength="5" :value.sync="input"></keyboard>
 		<p>${ input }</p>
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.min.js"></script>
@@ -25,8 +25,7 @@
 				},
 				events: {
 					mutate: function(keyboard) {
-						// Limit to 16 chars.
-						keyboard.value = keyboard.value.slice(0, 16);
+						//
 					},
 					custom: function(keyboard) {
 						console.log('Custom button pressed. The current value is ' + keyboard.value);

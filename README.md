@@ -26,6 +26,15 @@ If the `action` does not match any of these inbuilt actions, an event will be di
 
 > Note: You can simply use `{action}` which will create a button with no text content. This is useful for things like `space` which you may just want to render as a wide empty button.
 
+## Props.
+
+The possible component properties are:
+
+* `chars` - The character list (explained above).
+* `maxlength` - The maximum length of `value`.
+
+> Note: Because `maxlength` is a `Number` you must provide it with the vye dynamic syntax e.g. `<keyboard :maxlength="10">` not `<keyboard maxlength="10">` (the latter will be interpreted as a `String`).
+
 ## Interacting:
 
 In regards to styling and interacting with the component, there are several routes:

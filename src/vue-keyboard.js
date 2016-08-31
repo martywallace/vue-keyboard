@@ -17,6 +17,10 @@
 			value: {
 				type: String,
 				default: ''
+			},
+			maxlength: {
+				type: Number,
+				default: 0
 			}
 		},
 
@@ -70,6 +74,11 @@
 
 			mutate(value) {
 				this.value = value;
+
+				if (this.maxlength > 0) {
+					this.value = this.value.slice(0, this.maxlength);
+				}
+
 				this.$dispatch('mutate', this);
 			},
 
