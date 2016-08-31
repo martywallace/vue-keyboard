@@ -33,7 +33,7 @@ The possible component properties are:
 * `chars` - The character list (explained above).
 * `maxlength` - The maximum length of `value`.
 
-> Note: Because `maxlength` is a `Number` you must provide it with the vye dynamic syntax e.g. `<keyboard :maxlength="10">` not `<keyboard maxlength="10">` (the latter will be interpreted as a `String`).
+> Note: Because `maxlength` is a `Number` you must provide it with the Vue dynamic syntax e.g. `<keyboard :maxlength="10">` not `<keyboard maxlength="10">` (the latter will be interpreted as a `String`).
 
 ## Interacting:
 
