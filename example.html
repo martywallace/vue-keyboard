@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Keyboard Demo</title>
+
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Itim">
+		<link rel="stylesheet" href="./dist/vue-keyboard.css">
+
+		<style>
+			body {
+				font-family: 'Itim', sans-serif;
+				text-align: center;
+			}
+
+			h1 {
+				margin: 50px 0;
+				font-weight: normal;
+			}
+			
+			p {
+				text-align: center;
+				margin-bottom: 20px;
+			}
+
+			pre {
+				display: block;
+				margin: 0 auto;
+				background: #F6F6F6;
+				padding: 20px;
+				width: 200px;
+				height: 40px;
+				line-height: 40px;
+				font-size: 20px;
+				font-family: inherit;
+				text-align: center;
+			}
+			
+			small {
+				color: #999;
+			}
+		</style>
+	</head>
+	<body>
+		<main>
+			<h1>Vue Keyboard</h1>
+
+			<p><pre>{{ input }}</pre></p>
+			<p><small>{{ 16 - input.length }} char(s) left</small></p>
+			<keyboard v-model="input" @append="append" @custom="custom" chars="qwertyuiop{bksp:backspace}|asdfghjkl|zxcvbnm|{space:space}{custom:custom}" :maxlength="16"></keyboard>
+		</main>
+
+		<script src="./bower_components/vue/dist/vue.js"></script>
+		<script src="./dist/vue-keyboard.js"></script>
+
+		<script>
+			var app = new Vue({
+				el: 'main',
+				data: {
+					input: ''
+				},
+				methods: {
+					append: function(char) {
+						console.log('Appended ' + char);
+					},
+
+					custom: function(keyboard) {
+						console.log(keyboard.value);
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

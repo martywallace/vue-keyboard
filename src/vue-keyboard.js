@@ -1,6 +1,6 @@
 (() => {
 	window.VueKeyboard = Vue.component('keyboard', {
-		template: '<div class="keyboard"><div v-for="row in renderChars()"><button v-for="btn in row" :class="btn.class" @click="btn.action">{{ btn.value }}</button></div></div>',
+		template: '<div class="vue-keyboard"><div class="row" :data-keys="row.length" v-for="row in renderChars()"><button v-for="btn in row" :class="btn.class" @click="btn.action">{{ btn.value }}</button></div></div>',
 
 		props: {
 			chars: {
@@ -44,7 +44,7 @@
 							}
 
 							buttons.push({
-								class: 'action-' + action.replace(/\s+/g, '-').toLowerCase(),
+								class: 'action action-' + action.replace(/\s+/g, '-').toLowerCase(),
 								action: method,
 								value: text
 							});
@@ -55,7 +55,7 @@
 								token += char;
 							} else {
 								buttons.push({
-									class: 'char-' + char,
+									class: 'char char-' + char,
 									action: this.append.bind(this, char),
 									value: char
 								});

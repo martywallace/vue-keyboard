@@ -6,7 +6,7 @@
   "license": "MIT",
   "ignore": [
     "package.json",
-    "demo",
+    "example.html",
     "src"
   ],
   "dependencies": {
