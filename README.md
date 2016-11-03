@@ -26,7 +26,7 @@ If the `action` does not match any of these inbuilt actions, an event will be di
 
 > Note: You can simply use `{action}` which will create a button with no text content. This is useful for things like `space` which you may just want to render as a wide empty button.
 
-## Props.
+## Props:
 
 The possible component properties are:
 
@@ -70,7 +70,7 @@ var app = new Vue({
 Markup:
 
 ```
-<keyboard v-model="input" @append="append" @custom="custom" chars="qwertyuiop{backspace:backspace}|asdfghjkl|zxcvbnm|{space:space}{custom:custom}" :maxlength="5"></keyboard>
+<keyboard v-model="input" @append="append" @custom="custom" chars="qwertyuiop{backspace:backspace}|asdfghjkl|zxcvbnm|{space:space}{custom:custom}" :maxlength="16"></keyboard>
 ```
 
 This keeps the `input` value in the main application in sync with the value of the keyboard, limits that value to 16 characters and triggers the 'custom' function in the main application when the "custom" button in the keyboard is clicked.
