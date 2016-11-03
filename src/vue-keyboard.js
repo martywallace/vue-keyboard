@@ -1,27 +1,22 @@
 (() => {
 	window.VueKeyboard = Vue.component('keyboard', {
-		template: (() => {
-			// For this to work correctly, the delimiters need to be changed before the component is
-			// registered on the page.
-			const a =  Vue.config.delimiters[0];
-			const b =  Vue.config.delimiters[1];
-
-			return '<div class="keyboard"><div v-for="row in renderChars()"><button v-for="btn in row" :class="btn.class" @click="btn.action">' + a + ' btn.value ' + b + '</button></div></div>';
-		})(),
+		template: '<div class="keyboard"><div v-for="row in renderChars()"><button v-for="btn in row" :class="btn.class" @click="btn.action">{{ btn.value }}</button></div></div>',
 
 		props: {
 			chars: {
 				type: String,
 				required: true
 			},
-			value: {
-				type: String,
-				default: ''
-			},
 			maxlength: {
 				type: Number,
 				default: 0
 			}
+		},
+
+		data() {
+			return {
+				value: ''
+			};
 		},
 
 		methods: {
@@ -45,7 +40,7 @@
 							if (this.hasOwnProperty(action)) {
 								method = this[action].bind(this);
 							} else {
-								method = this.$dispatch.bind(this, action, this);
+								method = this.$emit.bind(this, action, this);
 							}
 
 							buttons.push({
@@ -79,11 +74,12 @@
 					this.value = this.value.slice(0, this.maxlength);
 				}
 
-				this.$dispatch('mutate', this);
+				this.$emit('input', this.value);
 			},
 
 			append(char) {
 				this.mutate(this.value + char);
+				this.$emit('append', char);
 			},
 
 			backspace() {

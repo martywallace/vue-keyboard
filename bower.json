@@ -1,8 +1,15 @@
 {
   "name": "vue-keyboard",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "homepage": "https://github.com/MartyWallace/vue-keyboard",
   "main": "dist/vue-keyboard.js",
   "license": "MIT",
-  "ignore": ["package.json", "demo"]
+  "ignore": [
+    "package.json",
+    "demo",
+    "src"
+  ],
+  "dependencies": {
+    "vue": "^2.0.3"
+  }
 }

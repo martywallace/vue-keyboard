@@ -5,30 +5,27 @@
 		<title>Keyboard Demo</title>
 	</head>
 	<body>
-		<keyboard chars="qwertyuiop{backspace:backspace}|asdfghjkl|zxcvbnm|{space:space}{custom:custom}" :maxlength="5" :value.sync="input"></keyboard>
-		<p>${ input }</p>
+		<main>
+			<keyboard v-model="input" @append="append" @custom="custom" chars="qwertyuiop{backspace:backspace}|asdfghjkl|zxcvbnm|{space:space}{custom:custom}" :maxlength="5"></keyboard>
+			<p>{{ input }}</p>
+		</main>
 
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.min.js"></script>
-		<script>
-			// Need to have this here so the Keyboard component will know what the delimiters should be. See:
-			// http://stackoverflow.com/questions/39112541/correct-way-to-reference-up-to-date-vue-delimiters-in-a-component
-			// https://github.com/vuejs/vue/issues/918
-			Vue.config.delimiters = ['${', '}'];
-		</script>
+		<script src="../bower_components/vue/dist/vue.js"></script>
 		<script src="../dist/vue-keyboard.js"></script>
 
 		<script>
 			var app = new Vue({
-				el: 'body',
+				el: 'main',
 				data: {
 					input: ''
 				},
-				events: {
-					mutate: function(keyboard) {
-						//
+				methods: {
+					append: function(char) {
+						console.log('Appended ' + char);
 					},
+
 					custom: function(keyboard) {
-						console.log('Custom button pressed. The current value is ' + keyboard.value);
+						console.log(keyboard.value);
 					}
 				}
 			});
