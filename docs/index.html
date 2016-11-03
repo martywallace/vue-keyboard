@@ -5,7 +5,7 @@
 		<title>Keyboard Demo</title>
 
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Itim">
-		<link rel="stylesheet" href="./dist/vue-keyboard.css">
+		<link rel="stylesheet" href="../dist/vue-keyboard.css">
 
 		<style>
 			body {
@@ -50,8 +50,8 @@
 			<keyboard v-model="input" @append="append" @custom="custom" chars="qwertyuiop{bksp:backspace}|asdfghjkl|zxcvbnm|{space:space}{custom:custom}" :maxlength="16"></keyboard>
 		</main>
 
-		<script src="./bower_components/vue/dist/vue.js"></script>
-		<script src="./dist/vue-keyboard.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.js"></script>
+		<script src="../dist/vue-keyboard.js"></script>
 
 		<script>
 			var app = new Vue({
