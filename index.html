@@ -38,6 +38,10 @@
 				font-family: inherit;
 				text-align: center;
 			}
+
+			.empty {
+				color: #CCC;
+			}
 			
 			small {
 				color: #999;
@@ -64,7 +68,7 @@
 		</header>
 
 		<main>
-			<p><pre>{{ input }}</pre></p>
+			<p><pre :class="{ empty: !input }">{{ input ? input : 'Start typing...' }}</pre></p>
 			<p><small>{{ 16 - input.length }} char(s) left</small></p>
 
 			<keyboard

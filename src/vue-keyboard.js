@@ -2,7 +2,15 @@
 	Vue.component('keyboard', {
 		template: `<aside class="vue-keyboard" role="application" :class="{ full: full, empty: empty }" :data-value="value" :data-layout="layout">
 			<div role="row" class="row" v-for="row in buttons" :data-keys="row.length">
-				<button role="button" v-for="btn in row" :class="btn.class" @click="btn.action" :data-args="btn.args" :data-char="btn.value">{{ btn.value }}</button>
+				<button
+					v-for="btn in row"
+					role="button"
+					:class="btn.type"
+					:data-args="btn.args"
+					:data-text="btn.value"
+					:data-action="btn.action.name"
+					@click="btn.action.callable"
+				>{{ btn.value }}</button>
 			</div>
 		</aside>`,
 
@@ -56,8 +64,8 @@
 							else method = this.$emit.bind(this, action, this);
 
 							buttons.push({
-								class: 'action action-' + action.replace(/\s+/g, '-').toLowerCase(),
-								action: method,
+								type: 'action',
+								action: { name: action.replace(/\s+/g, '-').toLowerCase(), callable: method },
 								value: text,
 								args: args
 							});
@@ -68,8 +76,8 @@
 								token += char;
 							} else {
 								buttons.push({
-									class: 'char',
-									action: this.append.bind(this, char),
+									type: 'char',
+									action: { name: null, callable: this.append.bind(this, char) },
 									value: char,
 									args: null
 								});
