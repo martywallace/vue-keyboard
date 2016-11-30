@@ -16,7 +16,7 @@
 
 		props: {
 			layouts: {
-				type: Array,
+				type: [String, Array],
 				required: true
 			},
 			maxlength: {
@@ -34,16 +34,28 @@
 		},
 
 		computed: {
+			/**
+			 * Whether or not the keyboard input has hit its maximum length.
+			 * @returns {Boolean}
+			 */
 			full() {
 				return this.value.length >= this.maxlength;
 			},
 
+			/**
+			 * Whether or not the keyboard input is empty.
+			 * @return {Boolean}
+			 */
 			empty() {
 				return this.value.length === 0;
 			},
 
+			/**
+			 * Returns an array of buttons to render in the component.
+			 * @returns {Array[]}
+			 */
 			buttons() {
-				let lines = this.layouts[this.layout].split('|');
+				let lines = (Array.isArray(this.layouts) ? this.layouts : [this.layouts])[this.layout].split('|');
 
 				return lines.map(chars => {
 					let stream = chars.split('');
@@ -91,6 +103,10 @@
 		},
 
 		methods: {
+			/**
+			 * Mutates the keyboard value to a new value.
+			 * @param {String} value The new value.
+			 */
 			mutate(value) {
 				this.value = value;
 
@@ -101,26 +117,47 @@
 				this.$emit('input', this.value);
 			},
 
+			/**
+			 * Appends a new value to the end of the current keyboard value.
+			 * @param {String} char The character(s) to append.
+			 */
 			append(char) {
 				this.mutate(this.value + char);
 			},
 
+			/**
+			 * Remove the last character from the current keyboard value.
+			 */
 			backspace() {
 				this.mutate(this.value.slice(0, this.value.length - 1));
 			},
 
+			/**
+			 * Add one whitespace character to the current keyboard value.
+			 */
 			space() {
 				this.append(' ');
 			},
 
+			/**
+			 * Go to a new layout.
+			 * @param {Number} The layout index.
+			 */
 			goto(layout) {
-				if (layout >= 0 && layout < this.layouts.length) {
-					this.layout = layout;
+				if (Array.isArray(this.layouts)) {
+					if (layout >= 0 && layout < this.layouts.length) {
+						this.layout = layout;
+					} else {
+						throw new Error('The requested layout does not exist.');
+					}
 				} else {
-					throw new Error('The requested layout does not exist.');
+					throw new Error('A single non-array layout was provided.');
 				}
 			},
 
+			/**
+			 * Clear the entire keyboard value.
+			 */
 			clear() {
 				this.mutate('');
 			}
