@@ -28,9 +28,9 @@
 			color: #FFF;
 			box-shadow: inset 0 1px 4px rgba(#000, 0.1);
 		}
-	}
 
-	.action-space {
-		padding: 8px 40px;
+		&[data-action="space"] {
+			padding: 8px 60px;
+		}
 	}
 }

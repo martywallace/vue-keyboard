@@ -20,6 +20,5 @@
     background: #777;
     color: #FFF;
     box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1); }
-
-.vue-keyboard .action-space {
-  padding: 8px 40px; }
+  .vue-keyboard button[data-action="space"] {
+    padding: 8px 60px; }

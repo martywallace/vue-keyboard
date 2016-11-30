@@ -9,7 +9,7 @@
 					:data-args="btn.args"
 					:data-text="btn.value"
 					:data-action="btn.action.name"
-					@click="btn.action.callable"
+					@click.prevent="btn.action.callable"
 				>{{ btn.value }}</button>
 			</div>
 		</aside>`,
