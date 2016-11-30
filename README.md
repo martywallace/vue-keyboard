@@ -53,11 +53,15 @@ JavaScript:
 var app = new Vue({
 	el: 'main',
 	data: {
-		input: ''
+		input: '',
+		layouts: [
+			'1234567890{delete:backspace}|qwertyuiop|asdfghjkl|{shift:goto:1}zxcvbnm|{space:space}{custom:custom}',
+			'!@#$%^&*(){delete:backspace}|QWERTYUIOP|ASDFGHJKL|{shift:goto:0}ZXCVBNM|{space:space}{custom:custom}'
+		]
 	},
 	methods: {
-		append: function(char) {
-			console.log('Appended ' + char);
+		changed: function(value) {
+			console.log('Value ' + value);
 		},
 
 		custom: function(keyboard) {
@@ -70,7 +74,7 @@ var app = new Vue({
 Markup:
 
 ```
-<keyboard v-model="input" @append="append" @custom="custom" chars="qwertyuiop{backspace:backspace}|asdfghjkl|zxcvbnm|{space:space}{custom:custom}" :maxlength="16"></keyboard>
+<keyboard v-model="input" @input="change" @custom="custom" chars="qwertyuiop{backspace:backspace}|asdfghjkl|zxcvbnm|{space:space}{custom:custom}" :maxlength="16"></keyboard>
 ```
 
 This keeps the `input` value in the main application in sync with the value of the keyboard, limits that value to 16 characters and triggers the 'custom' function in the main application when the "custom" button in the keyboard is clicked.

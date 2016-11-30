@@ -1,52 +1,65 @@
 (() => {
-	window.VueKeyboard = Vue.component('keyboard', {
-		template: '<div class="vue-keyboard"><div class="row" :data-keys="row.length" v-for="row in renderChars()"><button v-for="btn in row" :class="btn.class" @click="btn.action">{{ btn.value }}</button></div></div>',
+	Vue.component('keyboard', {
+		template: `<aside class="vue-keyboard" role="application" :class="{ full: full, empty: empty }" :data-value="value" :data-layout="layout">
+			<div role="row" class="row" v-for="row in buttons" :data-keys="row.length">
+				<button role="button" v-for="btn in row" :class="btn.class" @click="btn.action" :data-args="btn.args" :data-char="btn.value">{{ btn.value }}</button>
+			</div>
+		</aside>`,
 
 		props: {
-			chars: {
-				type: String,
+			layouts: {
+				type: Array,
 				required: true
 			},
 			maxlength: {
 				type: Number,
-				default: 0
+				default: 0,
+				validator(value) { return value >= 0; }
 			}
 		},
 
 		data() {
 			return {
-				value: ''
+				value: '',
+				layout: 0
 			};
 		},
 
-		methods: {
-			renderChars() {
-				let lines = this.chars.split('|');
+		computed: {
+			full() {
+				return this.value.length >= this.maxlength;
+			},
 
-				return lines.map((chars) => {
+			empty() {
+				return this.value.length === 0;
+			},
+
+			buttons() {
+				let lines = this.layouts[this.layout].split('|');
+
+				return lines.map(chars => {
 					let stream = chars.split('');
 					let buttons = [];
 					let token = null;
 
-					stream.forEach((char) => {
+					stream.forEach(char => {
 						if (char === '{') {
 							token = '';
 						} else if (char === '}') {
 							let command = token.split(':');
 							let text = command.length > 1 ? command[0] : '';
 							let action = command.length > 1 ? command[1] : command[0];
+							let args = command.length > 2 ? command[2] : null;
 							let method = null;
 
-							if (this.hasOwnProperty(action)) {
-								method = this[action].bind(this);
-							} else {
-								method = this.$emit.bind(this, action, this);
-							}
+							if (['append', 'backspace', 'space', 'clear', 'goto'].indexOf(action) >= 0) method = this[action].bind(this, args);
+							else method = this.$emit.bind(this, action, this);
 
 							buttons.push({
 								class: 'action action-' + action.replace(/\s+/g, '-').toLowerCase(),
 								action: method,
-								value: text
+								value: text,
+								args: args
 							});
 							
 							token = null;
@@ -55,9 +68,10 @@
 								token += char;
 							} else {
 								buttons.push({
-									class: 'char char-' + char,
+									class: 'char',
 									action: this.append.bind(this, char),
-									value: char
+									value: char,
+									args: null
 								});
 							}
 						}
@@ -65,8 +79,10 @@
 
 					return buttons;
 				});
-			},
+			}
+		},
 
+		methods: {
 			mutate(value) {
 				this.value = value;
 
@@ -79,7 +95,6 @@
 
 			append(char) {
 				this.mutate(this.value + char);
-				this.$emit('append', char);
 			},
 
 			backspace() {
@@ -88,6 +103,14 @@
 
 			space() {
 				this.append(' ');
+			},
+
+			goto(layout) {
+				if (layout >= 0 && layout < this.layouts.length) {
+					this.layout = layout;
+				} else {
+					throw new Error('The requested layout does not exist.');
+				}
 			},
 
 			clear() {

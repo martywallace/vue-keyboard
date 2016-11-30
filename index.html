@@ -67,7 +67,16 @@
 			<p><pre>{{ input }}</pre></p>
 			<p><small>{{ 16 - input.length }} char(s) left</small></p>
 
-			<keyboard v-model="input" @append="append" @custom="custom" chars="qwertyuiop{bksp:backspace}|asdfghjkl|zxcvbnm|{space:space}{custom:custom}" :maxlength="16"></keyboard>
+			<keyboard
+				v-model="input"
+				@custom="custom"
+				@input="changed"
+				:layouts="[
+					'1234567890{delete:backspace}|qwertyuiop|asdfghjkl|{shift:goto:1}zxcvbnm|{space:space}{custom:custom}',
+					'!@#$%^&*(){delete:backspace}|QWERTYUIOP|ASDFGHJKL|{shift:goto:0}ZXCVBNM|{space:space}{custom:custom}'
+				]"
+				:maxlength="16"
+			></keyboard>
 		</main>
 
 		<footer>
@@ -81,11 +90,11 @@
 			var app = new Vue({
 				el: 'main',
 				data: {
-					input: ''
+					input: '',
 				},
 				methods: {
-					append: function(char) {
-						console.log('Appended ' + char);
+					changed: function(value) {
+						console.log('Value ' + value);
 					},
 
 					custom: function(keyboard) {
