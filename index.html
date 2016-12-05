@@ -2,53 +2,28 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Keyboard Demo</title>
+		<title>vue-keyboard</title>
 
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Itim">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,700">
 		<link rel="stylesheet" href="./dist/vue-keyboard.css">
 
 		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+
+			html, body {
+				height: 100%;
+			}
+
 			body {
-				font-family: 'Itim', sans-serif;
-				text-align: center;
-			}
-
-			header, footer {
-				padding: 50px 0;
-			}
-
-			h1 {
-				font-weight: normal;
-			}
-			
-			p {
-				text-align: center;
-				margin-bottom: 20px;
-			}
-
-			pre {
-				display: block;
-				margin: 0 auto;
-				background: #F6F6F6;
-				padding: 20px;
-				width: 200px;
-				height: 40px;
-				line-height: 40px;
-				font-size: 20px;
-				font-family: inherit;
-				text-align: center;
-			}
-
-			.empty {
-				color: #CCC;
-			}
-			
-			small {
-				color: #999;
+				font-family: 'Ubuntu', sans-serif;
+				line-height: 1.6;
 			}
 
 			a {
-				color: #05C;
+				color: #C00;
 				text-decoration: none;
 			}
 
@@ -56,36 +31,241 @@
 				text-decoration: underline;
 			}
 
-			.vue-keyboard button[data-text="delete"] {
-				background: #C00;
-				color: #FFF;
+			nav {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 300px;
+				height: 100%;
+				background: #EEE;
+			}
+
+			nav ul {
+				list-style: none;
+				padding: 40px;
+			}
+
+			main {
+				text-align: center;
+				padding: 40px 40px 40px 340px;
+			}
+
+			.vue-keyboard {
+				padding: 20px;
+				background: #DDD;
+			}
+
+			.vue-keyboard button {
+				background: #F9F9F9;
+				box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+			}
+
+			.vue-keyboard button:hover {
+				background: #FFF;
+			}
+
+			.vue-keyboard button:active {
+				background: #333;
+			}
+
+			section {
+				max-width: 600px;
+				margin: 0 auto;
+			}
+
+			section + section {
+				margin-top: 50px;
+				padding-top: 50px;
+				border-top: 1px solid #EEE;
+			}
+
+			h1 {
+				font-size: 200%;
+				margin-bottom: 20px;
+			}
+
+			h2 {
+				font-size: 140%;
+				color: #444;
+			}
+
+			h2, p, pre {
+				display: block;
+				margin-top: 20px;
+			}
+
+			code {
+				display: inline-block;
+				font-family: Consolas, monospace;
+				font-size: 100%;
+			}
+
+			pre code {
+				display: block;
+				text-align: left;
+				background: #F8F8F8;
+				padding: 12px;
+				overflow: auto;
+			}
+
+			code span {
+				display: inline-block;
+				padding: 0 6px;
+				background: #F5F894;
+				border-radius: 2px;
+			}
+
+			.value {
+				display: block;
+				max-width: 300px;
+				background: #F9F9F9;
+				margin: auto;
+				margin-bottom: 20px;
+				border-radius: 2px;
+				height: 40px;
+				line-height: 40px;
+				border: 1px solid #DDD;
 			}
 		</style>
 	</head>
 	<body>
-		<header>
-			<h1>Vue Keyboard</h1>
-		</header>
+		<nav>
+			<ul>
+				<li><a href="#top">Intro</a></li>
+				<li><a href="#installation">Installation</a></li>
+				<li><a href="#basic">Basic Usage</a></li>
+				<li><a href="#input">Capturing Input</a></li>
+				<li><a href="#limit">Limiting Length</a></li>
+				<li><a href="#multi">Multiple Layouts</a></li>
+				<li><a href="#special">Special Keys</a></li>
+				<li><a href="#complete">Complete Example</a></li>
+			</ul>
+		</nav>
 
 		<main>
-			<p><pre :class="{ empty: !input }">{{ input ? input : 'Start typing...' }}</pre></p>
-			<p><small>{{ 16 - input.length }} char(s) left</small></p>
+			<section id="intro">
+				<h1>vue-keyboard</h1>
+				<p><a href="https://github.com/MartyWallace/vue-keyboard" target="_blank">GitHub</a></p>
+			</section>
 
-			<keyboard
-				v-model="input"
-				@custom="custom"
-				@input="changed"
-				:layouts="[
-					'1234567890{delete:backspace}|qwertyuiop|asdfghjkl|{shift:goto:1}zxcvbnm|{space:space}{custom:custom}',
-					'!@#$%^&*(){delete:backspace}|QWERTYUIOP|ASDFGHJKL|{shift:goto:0}ZXCVBNM|{space:space}{custom:custom}'
-				]"
-				:maxlength="16"
-			></keyboard>
+			<section id="installation">
+				<h2>Installation</h2>
+
+				<p>Either <a href="https://github.com/MartyWallace/vue-keyboard/tree/master/dist" target="_blank">download the files from the repository</a> or install with Bower:</p>
+
+				<pre><code>$ bower install --save vue-keyboard</code></pre>
+			</section>
+
+			<section id="basic">
+				<h2>Basic Usage</h2>
+
+				<p>Once you've added the JavaScript for the component to your application, you will be able to use it. The included CSS is optional and acts as more of a guide to laying out your keyboard.</p>
+				<p>To embed a simple keyboard with numbers 0-9, the markup could look like:</p>
+
+				<pre><code>&lt;keyboard layouts="123|456|789|0"&gt;&lt;/keyboard&gt;</code></pre>
+
+				<p>Giving the following result:</p>
+
+				<p class="example-keyboard">
+					<keyboard layouts="123|456|789|0"></keyboard>
+				</p>
+			</section>
+
+			<section id="input">
+				<h2>Capturing Input</h2>
+
+				<p>You can use the <code>v-model</code> attribute to bind the keyboard value to a value in your application.</p>
+				<p>Assuming your application has a data property <code>input</code>:</p>
+
+				<pre><code>&lt;keyboard <span>v-model="<strong>input</strong>"</span> layouts="123|456|789|0"&gt;&lt;/keyboard&gt;</code></pre>
+
+				<p>Giving the following result:</p>
+
+				<p class="example-keyboard">
+					<div class="value">{{ input }}</div>
+					<keyboard v-model="input" layouts="123|456|789|0"></keyboard>
+				</p>
+			</section>
+
+			<section id="limit">
+				<h2>Limiting Length</h2>
+
+				<p>You can use the <code>maxlength</code> attribute to restrict the maximum input length via the keyboard.</p>
+
+				<pre><code>&lt;keyboard v-model="input" <span>:maxlength="6"</span> layouts="123|456|789|0"&gt;&lt;/keyboard&gt;</code></pre>
+
+				<p>Giving the following result:</p>
+
+				<p class="example-keyboard">
+					<div class="value">{{ input2 }}</div>
+					<keyboard v-model="input2" :maxlength="6" layouts="123|456|789|0"></keyboard>
+				</p>
+			</section>
+
+			<section id="multi">
+				<h2>Multiple Layouts</h2>
+
+				<p>Multiple keyboard layouts can be provided an an array to the <code>layouts</code> attribute. From there you can use the special <code>goto:n</code> key to toggle between them:</p>
+
+				<pre><code>&lt;keyboard <span>:layouts="['123|456|789|0{toggle:goto:1}','ABC|DEF|GHI|J{toggle:goto:0}']"</span>&gt;&lt;/keyboard&gt;</code></pre>
+
+				<p class="example-keyboard">
+					<keyboard :layouts="['123|456|789|0{toggle:goto:1}','ABC|DEF|GHI|J{toggle:goto:0}']"></keyboard>
+				</p>
+			</section>
+
+			<section id="special">
+				<h2>Special Keys</h2>
+
+				<p>Custom functionality can be attached to keys within the keyboard using the <code>{text:action}</code> syntax, for example;</p>
+
+				<pre><code>&lt;keyboard layouts="01234|56789|<span>{double:dub}</span>" <span>@dub="double"</span>&gt;&lt;/keyboard&gt;</code></pre>
+
+				<p class="example-keyboard">
+					<div class="value">{{ input3 }}</div>
+					<keyboard v-model="input3" layouts="01234|56789|{double:dub}" @dub="double"></keyboard>
+				</p>
+
+				<p>In this example, we tell the <code>double</code> button to emit an event named <code>dub</code>. We listen for that event with the <code>@dub="double"</code> directive, which calls the <code>double</code> function in the main Vue application, which looks like this:</p>
+				
+				<pre><code>double: function(keyboard) {
+    if (keyboard.value.length > 0) {
+        keyboard.mutate((keyboard.value * 2).toString());
+    }
+}</code></pre>
+				<p>Note there is some inbuilt special functionality, those being: <code>space</code> to add a whitespace character, <code>backspace</code> to delete the last character, <code>clear</code> to clear all input and <code>goto:n</code> to swap the keyboard over to a different layout.</p>
+			</section>
+
+			<section id="complete">
+				<h2>Complete Example</h2>
+
+				<p>Here is a complete example:</p>
+
+				<pre><code>&lt;keyboard
+    v-model="input4"
+    :layouts="[
+        '1234567890{delete:backspace}|qwertyuiop|asdfghjkl|{shift:goto:1}zxcvbnm|{space:space}{reverse:reverse}',
+        '!@#$%^&*(){delete:backspace}|QWERTYUIOP|ASDFGHJKL|{shift:goto:0}ZXCVBNM|{space:space}{reverse:reverse}'
+    ]"
+    :maxlength="16"
+    @reverse="reverse"
+&gt;&lt;/keyboard&gt;</code></pre>
+
+				<p class="example-keyboard">
+					<div class="value">{{ input4 }}</div>
+
+					<keyboard
+						v-model="input4"
+						:layouts="[
+							'1234567890{delete:backspace}|qwertyuiop|asdfghjkl|{shift:goto:1}zxcvbnm|{space:space}{reverse:reverse}',
+							'!@#$%^&*(){delete:backspace}|QWERTYUIOP|ASDFGHJKL|{shift:goto:0}ZXCVBNM|{space:space}{reverse:reverse}'
+						]"
+						:maxlength="16"
+						@reverse="reverse"
+					></keyboard>
+				</p>
+			</section>
 		</main>
-
-		<footer>
-			<a href="https://github.com/MartyWallace/vue-keyboard">GitHub</a>
-		</footer>
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.js"></script>
 		<script src="./dist/vue-keyboard.js"></script>
@@ -95,14 +275,21 @@
 				el: 'main',
 				data: {
 					input: '',
+					input2: '',
+					input3: '',
+					input4: ''
 				},
 				methods: {
-					changed: function(value) {
-						console.log('Value ' + value);
+					double: function(keyboard) {
+						if (keyboard.value.length > 0) {
+							keyboard.mutate((keyboard.value * 2).toString());
+						}
 					},
+					reverse: function(keyboard) {
+						var list = keyboard.value.split('');
+						list.reverse();
 
-					custom: function(keyboard) {
-						console.log(keyboard.value);
+						keyboard.mutate(list.join(''));
 					}
 				}
 			});
