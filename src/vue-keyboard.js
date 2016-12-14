@@ -1,6 +1,6 @@
 (() => {
 	Vue.component('keyboard', {
-		template: `<aside class="vue-keyboard" role="application" :class="{ full: full, empty: empty }" :data-value="value" :data-layout="layout">
+		template: `<aside class="vue-keyboard" role="application" :class="{ full: full, empty: empty, valid: valid, invalid: !valid }" :data-value="value" :data-layout="layout">
 			<div role="row" class="row" v-for="row in buttons" :data-keys="row.length">
 				<button
 					v-for="btn in row"
@@ -27,6 +27,10 @@
 				type: Number,
 				default: 0,
 				validator(value) { return value >= 0; }
+			},
+			pattern: {
+				type: String,
+				default: null
 			}
 		},
 
@@ -102,6 +106,15 @@
 
 					return buttons;
 				});
+			},
+
+			/**
+			 * Whether or not the current value matches the regex provided to pattern. Always
+			 * returns true if no pattern was provided.
+			 * @returns {Boolean}
+			 */
+			valid() {
+				return !this.pattern || this.value.match(new RegExp(this.pattern));
 			}
 		},
 
