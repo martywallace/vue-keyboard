@@ -42,7 +42,7 @@
 			 * @returns {Boolean}
 			 */
 			full() {
-				return this.value.length >= this.maxlength;
+				return this.maxlength > 0 && this.value.length >= this.maxlength;
 			},
 
 			/**

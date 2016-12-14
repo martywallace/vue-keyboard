@@ -183,7 +183,7 @@
 
 				<p class="example-keyboard">
 					<div class="value">{{ input }}</div>
-					<keyboard v-model="input" layouts="123|456|789|0" value="blah"></keyboard>
+					<keyboard v-model="input" layouts="123|456|789|0"></keyboard>
 				</p>
 			</section>
 
@@ -242,7 +242,7 @@
 				<p>Here is a complete example:</p>
 
 				<pre><code>&lt;keyboard
-    v-model="input4"
+    v-model="input"
     :layouts="[
         '1234567890{delete:backspace}|qwertyuiop|asdfghjkl|{shift:goto:1}zxcvbnm|{space:space}{reverse:reverse}',
         '!@#$%^&*(){delete:backspace}|QWERTYUIOP|ASDFGHJKL|{shift:goto:0}ZXCVBNM|{space:space}{reverse:reverse}'
