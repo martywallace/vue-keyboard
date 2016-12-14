@@ -15,6 +15,10 @@
 		</aside>`,
 
 		props: {
+			value: {
+				type: String,
+				default: ''
+			},
 			layouts: {
 				type: [String, Array],
 				required: true
@@ -28,7 +32,6 @@
 
 		data() {
 			return {
-				value: '',
 				layout: 0
 			};
 		},
@@ -108,13 +111,11 @@
 			 * @param {String} value The new value.
 			 */
 			mutate(value) {
-				this.value = value;
-
 				if (this.maxlength > 0) {
-					this.value = this.value.slice(0, this.maxlength);
+					value = value.slice(0, this.maxlength);
 				}
 
-				this.$emit('input', this.value);
+				this.$emit('input', value);
 			},
 
 			/**
