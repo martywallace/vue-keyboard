@@ -48,6 +48,11 @@ If the `action` does not match any of these inbuilt actions, an event will be di
 			<td><code>number</code></td>
 			<td>The maximum input length.</td>
 		</tr>
+		<tr>
+			<td><code>pattern</code></td>
+			<td><code>string</code></td>
+			<td>A regex pattern to apply to the keyboard value. If provided, an invalid match will add the <code>invalid</code> class to the keyboard component. If not provided or if the value matches, the <code>valid</code> class is added.</td>
+		</tr>
 	</tbody>
 </table>
 
