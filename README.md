@@ -1,16 +1,12 @@
 # vue-keyboard
 
-A simple virtual keyboard for Vue.js.
+A virtual keyboard for Vue 2.
 
 ## Install:
 
-This component is available through [Bower](https://bower.io/search/?q=vue-keyboard):
-
-    $ bower install --save vue-keyboard
+    $ npm install --save vue-keyboard
 
 ## Usage:
-
-Simply add the `keyboard` component to your Vue application:
 
 ```
 <keyboard layouts="abc123|xyz456|{space:space}"></keyboard>
@@ -64,17 +60,23 @@ Here is an example application containing a `keyboard` component:
 JavaScript:
 
 ```
-var app = new Vue({
-	el: 'main',
+import Vue from 'vue';
+import keyboard from 'vue-keyboard';
+
+new Vue({
+	el: '#app',
+	components: { keyboard },
+
 	data: {
 		input: '',
 	},
+
 	methods: {
-		changed: function(value) {
+		changed(value) {
 			console.log('Value ' + value);
 		},
 
-		custom: function(keyboard) {
+		custom(keyboard) {
 			console.log(keyboard.value);
 		}
 	}

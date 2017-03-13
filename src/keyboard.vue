@@ -1,19 +1,7 @@
-(() => {
-	Vue.component('keyboard', {
-		template: `<aside class="vue-keyboard" role="application" :class="{ full: full, empty: empty, valid: valid, invalid: !valid }" :data-value="value" :data-layout="layout">
-			<div role="row" class="row" v-for="row in buttons" :data-keys="row.length">
-				<button
-					v-for="btn in row"
-					role="button"
-					:class="btn.type"
-					:data-args="btn.args"
-					:data-text="btn.value"
-					:data-action="btn.action.name"
-					@click.prevent="btn.action.callable"
-				>{{ btn.value }}</button>
-			</div>
-		</aside>`,
-
+<script>
+	export default {
+		name: 'keyboard',
+		
 		props: {
 			value: {
 				type: String,
@@ -176,5 +164,58 @@
 				this.mutate('');
 			}
 		}
-	});
-})();
+	}
+</script>
+
+<template>
+	<aside class="vue-keyboard" role="application" :class="{ full: full, empty: empty, valid: valid, invalid: !valid }" :data-value="value" :data-layout="layout">
+		<div role="row" class="row" v-for="row in buttons" :data-keys="row.length">
+			<button
+				v-for="btn in row"
+				role="button"
+				:class="btn.type"
+				:data-args="btn.args"
+				:data-text="btn.value"
+				:data-action="btn.action.name"
+				@click.prevent="btn.action.callable"
+			>{{ btn.value }}</button>
+		</div>
+	</aside>
+</template>
+
+<style lang="sass" scoped>
+	.vue-keyboard {
+		.row {
+			padding: 2px 0;
+			text-align: center;
+		}
+
+		button {
+			border: none;
+			outline: none;
+			padding: 8px 10px;
+			min-width: 40px;
+			margin: 0 2px;
+			background: #EEE;
+			color: #666;
+			cursor: pointer;
+			font-family: inherit;
+			font-size: inherit;
+			border-radius: 2px;
+
+			&:hover {
+				background: #E0E0E0;
+			}
+
+			&:active {
+				background: #777;
+				color: #FFF;
+				box-shadow: inset 0 1px 4px rgba(#000, 0.1);
+			}
+
+			&[data-action="space"] {
+				padding: 8px 60px;
+			}
+		}
+	}
+</style>
