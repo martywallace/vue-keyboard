@@ -4,7 +4,14 @@ A virtual keyboard for Vue 2.
 
 ## Install:
 
-    $ npm install --save vue-keyboard
+```
+$ npm install --save vue-keyboard
+```
+
+## Resources:
+
+* [Guide](https://martywallace.com/projects/vue-keyboard/guide).
+* [Demo](http://vue-keyboard.martywallace.com).
 
 ## Usage:
 
