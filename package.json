@@ -11,8 +11,5 @@
     "vue",
     "vuejs",
     "component"
-  ],
-  "peerDependencies": {
-    ""
-  }
+  ]
 }
