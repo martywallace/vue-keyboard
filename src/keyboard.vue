@@ -183,7 +183,7 @@
 	</aside>
 </template>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
 	.vue-keyboard {
 		.row {
 			padding: 2px 0;
