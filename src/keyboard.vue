@@ -14,7 +14,7 @@
 			maxlength: {
 				type: Number,
 				default: 0,
-				validator(value) { return value >= 0; }
+				validator: value => value >= 0
 			},
 			pattern: {
 				type: String,
@@ -169,9 +169,10 @@
 
 <template>
 	<aside class="vue-keyboard" role="application" :class="{ full: full, empty: empty, valid: valid, invalid: !valid }" :data-value="value" :data-layout="layout">
-		<div role="row" class="row" v-for="row in buttons" :data-keys="row.length">
+		<div role="row" class="vue-keyboard-row" v-for="row in buttons" :data-keys="row.length">
 			<button
 				v-for="btn in row"
+				class="vue-keyboard-key"
 				role="button"
 				:class="btn.type"
 				:data-args="btn.args"
@@ -183,39 +184,37 @@
 	</aside>
 </template>
 
-<style lang="scss" scoped>
-	.vue-keyboard {
-		.row {
-			padding: 2px 0;
-			text-align: center;
-		}
+<style>
+	.vue-keyboard-row {
+		padding: 2px 0;
+		text-align: center;
+	}
 
-		button {
-			border: none;
-			outline: none;
-			padding: 8px 10px;
-			min-width: 40px;
-			margin: 0 2px;
-			background: #EEE;
-			color: #666;
-			cursor: pointer;
-			font-family: inherit;
-			font-size: inherit;
-			border-radius: 2px;
+	.vue-keyboard-key {
+		border: none;
+		outline: none;
+		padding: 8px 10px;
+		min-width: 40px;
+		margin: 0 2px;
+		background: #EEE;
+		color: #666;
+		cursor: pointer;
+		font-family: inherit;
+		font-size: inherit;
+		border-radius: 2px;
+	}
 
-			&:hover {
-				background: #E0E0E0;
-			}
+	.vue-keyboard-key:hover {
+		background: #E0E0E0;
+	}
 
-			&:active {
-				background: #777;
-				color: #FFF;
-				box-shadow: inset 0 1px 4px rgba(#000, 0.1);
-			}
+	.vue-keyboard-key:active {
+		background: #777;
+		color: #FFF;
+		box-shadow: inset 0 1px 4px rgba(#000, 0.1);
+	}
 
-			&[data-action="space"] {
-				padding: 8px 60px;
-			}
-		}
+	.vue-keyboard-key[data-action="space"] {
+		padding: 8px 60px;
 	}
 </style>
