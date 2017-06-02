@@ -34,7 +34,7 @@ You can use the pipe `|`, open curly brace `{` or close curly brace `}` characte
 
     <keyboard layouts="||{{}}"></keyboard>
 
-Will output a keyboard with the characters '|{}`.
+Will output a keyboard with the characters `|{}`.
 
 ## Props:
 
