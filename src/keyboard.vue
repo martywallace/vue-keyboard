@@ -239,6 +239,6 @@
 	}
 
 	.vue-keyboard-key[data-action="space"] {
-		padding: 8px 60px;
+		min-width: 160px;
 	}
 </style>
