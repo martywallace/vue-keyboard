@@ -30,6 +30,12 @@ If the `action` does not match any of these inbuilt actions, an event will be di
 
 > Note: You can simply use `{action}` which will create a button with no text content. This is useful for things like `space` which you may just want to render as a wide empty button.
 
+You can use the pipe `|`, open curly brace `{` or close curly brace `}` characters in your keyboard by doubling up, e.g.
+
+    <keyboard layouts="||{{}}"></keyboard>
+
+Will output a keyboard with the characters '|{}`.
+
 ## Props:
 
 <table>
