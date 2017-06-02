@@ -1,4 +1,11 @@
 <script>
+	const Tokens = {
+		// Sequences that no-one will ever put in their keyboards.
+		PIPE: '7440011c983cf39ae730b1f831e2922ac5a76910',
+		OPEN_BRACE: 'f630c4abcae620278f82e142a526ef325c2a773a',
+		CLOSE_BRACE: 'ad982c66898e02a5dab419ea7568421b03f68ee2'
+	};
+
 	export default {
 		name: 'keyboard',
 		
@@ -46,14 +53,27 @@
 			},
 
 			/**
+			 * Returns the lines that make up a layout.
+			 * @return {Array}
+			 */
+			lines() {
+				let layout = (Array.isArray(this.layouts) ? this.layouts : [this.layouts])[this.layout];
+
+				return layout.replace('||', Tokens.PIPE)
+					.replace('{{', Tokens.OPEN_BRACE)
+					.replace('}}', Tokens.CLOSE_BRACE)
+					.split('|');
+			},
+
+			/**
 			 * Returns an array of buttons to render in the component.
 			 * @returns {Array[]}
 			 */
 			buttons() {
-				let lines = (Array.isArray(this.layouts) ? this.layouts : [this.layouts])[this.layout].split('|');
+				return this.lines.map(line => {
+					// TODO: Could potentially rely on Object.values() here instead of being explicit.
+					let stream = line.match(new RegExp(`(${Tokens.OPEN_BRACE}|${Tokens.CLOSE_BRACE}|${Tokens.PIPE}|.)`, 'g'));
 
-				return lines.map(chars => {
-					let stream = chars.split('');
 					let buttons = [];
 					let token = null;
 
@@ -74,7 +94,7 @@
 								type: 'action',
 								action: { name: action.replace(/\s+/g, '-').toLowerCase(), callable: method },
 								value: text,
-								args: args
+								args
 							});
 							
 							token = null;
@@ -82,6 +102,10 @@
 							if (token !== null) {
 								token += char;
 							} else {
+								if (char === Tokens.PIPE) char = '|';
+								if (char === Tokens.OPEN_BRACE) char = '{';
+								if (char === Tokens.CLOSE_BRACE) char = '}';
+
 								buttons.push({
 									type: 'char',
 									action: { name: null, callable: this.append.bind(this, char) },
