@@ -15,7 +15,7 @@ $ npm install --save vue-keyboard
 
 ## Usage:
 
-```
+``` vue
 <keyboard layouts="abc123|xyz456|{space:space}"></keyboard>
 ```
 
@@ -32,37 +32,39 @@ If the `action` does not match any of these inbuilt actions, an event will be di
 
 You can use the pipe `|`, open curly brace `{` or close curly brace `}` characters in your keyboard by doubling up, e.g.
 
-    <keyboard layouts="||{{}}"></keyboard>
+``` vue
+<keyboard layouts="||{{}}"></keyboard>
+```
 
 Will output a keyboard with the characters `|{}`.
 
 ## Props:
 
 <table>
-	<thead>
-		<tr>
-			<th>Prop</th>
-			<th>Type</th>
-			<th>Description</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td><code>layouts</code></td>
-			<td><code>string|string[]</code></td>
-			<td>One or more keyboard layouts, explained above.</td>
-		</tr>
-		<tr>
-			<td><code>maxlength</code></td>
-			<td><code>number</code></td>
-			<td>The maximum input length.</td>
-		</tr>
-		<tr>
-			<td><code>pattern</code></td>
-			<td><code>string</code></td>
-			<td>A regex pattern to apply to the keyboard value. If provided, an invalid match will add the <code>invalid</code> class to the keyboard component. If not provided or if the value matches, the <code>valid</code> class is added.</td>
-		</tr>
-	</tbody>
+  <thead>
+    <tr>
+      <th>Prop</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>layouts</code></td>
+      <td><code>string|string[]</code></td>
+      <td>One or more keyboard layouts, explained above.</td>
+    </tr>
+    <tr>
+      <td><code>maxlength</code></td>
+      <td><code>number</code></td>
+      <td>The maximum input length.</td>
+    </tr>
+    <tr>
+      <td><code>pattern</code></td>
+      <td><code>string</code></td>
+      <td>A regex pattern to apply to the keyboard value. If provided, an invalid match will add the <code>invalid</code> class to the keyboard component. If not provided or if the value matches, the <code>valid</code> class is added.</td>
+    </tr>
+  </tbody>
 </table>
 
 
@@ -72,42 +74,42 @@ Here is an example application containing a `keyboard` component:
 
 JavaScript:
 
-```
+``` javascript
 import Vue from 'vue';
 import keyboard from 'vue-keyboard';
 
 new Vue({
-	el: '#app',
-	components: { keyboard },
+  el: '#app',
+  components: { keyboard },
 
-	data: {
-		input: '',
-	},
+  data: {
+    input: '',
+  },
 
-	methods: {
-		changed(value) {
-			console.log('Value ' + value);
-		},
+  methods: {
+    changed(value) {
+      console.log('Value ' + value);
+    },
 
-		custom(keyboard) {
-			console.log(keyboard.value);
-		}
-	}
+    custom(keyboard) {
+      console.log(keyboard.value);
+    }
+  }
 });
 ```
 
 Markup:
 
-```
+``` vue
 <keyboard
-	v-model="input"
-	@custom="custom"
-	@input="changed"
-	:layouts="[
-		'1234567890{delete:backspace}|qwertyuiop|asdfghjkl|{shift:goto:1}zxcvbnm|{space:space}{custom:custom}',
-		'!@#$%^&*(){delete:backspace}|QWERTYUIOP|ASDFGHJKL|{shift:goto:0}ZXCVBNM|{space:space}{custom:custom}'
-	]"
-	:maxlength="16"
+  v-model="input"
+  @custom="custom"
+  @input="changed"
+  :layouts="[
+    '1234567890{delete:backspace}|qwertyuiop|asdfghjkl|{shift:goto:1}zxcvbnm|{space:space}{custom:custom}',
+    '!@#$%^&*(){delete:backspace}|QWERTYUIOP|ASDFGHJKL|{shift:goto:0}ZXCVBNM|{space:space}{custom:custom}'
+  ]"
+  :maxlength="16"
 ></keyboard>
 ```
 
