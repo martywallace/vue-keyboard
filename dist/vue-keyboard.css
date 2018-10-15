@@ -1,0 +1,38 @@
+/*!
+ * /**
+ *  * vue-keyboard v3.1.1
+ *  * https://github.com/MartyWallace/vue-keyboard
+ *  * Released under the MIT License.
+ *  * /
+ * 
+ */
+
+.vue-keyboard-row {
+  padding: 2px 0;
+  text-align: center;
+}
+.vue-keyboard-key {
+  border: none;
+  outline: none;
+  padding: 8px 10px;
+  min-width: 40px;
+  margin: 0 2px;
+  background: #EEE;
+  color: #666;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  border-radius: 2px;
+}
+.vue-keyboard-key:hover {
+  background: #E0E0E0;
+}
+.vue-keyboard-key:active {
+  background: #777;
+  color: #FFF;
+  box-shadow: inset 0 1px 4px rgba(#000, 0.1);
+}
+.vue-keyboard-key[data-action="space"] {
+  min-width: 160px;
+}
+
