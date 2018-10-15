@@ -1,5 +1,4 @@
 import keyboard from './keyboard.vue';
+import css from '../dist/vue-keyboard.css';
 
-export {
-  keyboard
-}
+export default keyboard;
