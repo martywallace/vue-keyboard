@@ -4,7 +4,6 @@ const banner = "/**\n" + " * vue-keyboard v" + version + "\n" + " * https://gith
 
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   mode: 'production',

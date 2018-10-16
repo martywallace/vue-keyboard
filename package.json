@@ -25,7 +25,6 @@
     "babel-preset-stage-0": "^6.24.1",
     "css-loader": "^1.0.0",
     "file-loader": "^2.0.0",
-    "mini-css-extract-plugin": "^0.4.4",
     "style-loader": "^0.23.1",
     "uglifyjs-webpack-plugin": "^2.0.1",
     "vue": "^2.5.17",
