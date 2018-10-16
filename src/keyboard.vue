@@ -17,8 +17,6 @@
 </template>
 
 <script>
-  import css from './vue-keyboard.css';
-
   const Tokens = {
     // Sequences that no-one will ever put in their keyboards.
     PIPE: '7440011c983cf39ae730b1f831e2922ac5a76910',

@@ -8,7 +8,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   mode: 'production',
-  entry: './dist/index',
+  entry: './src/index',
   output: {
     path: __dirname + '/dist',
     filename: 'vue-keyboard.js',
@@ -26,9 +26,6 @@ module.exports = {
       banner: banner
     }),
     new VueLoaderPlugin(),
-    new MiniCssExtractPlugin({
-      filename: 'vue-keyboard.css'
-    }),
   ],
   module: {
     rules: [
@@ -44,8 +41,8 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
+          'style-loader',
+          'css-loader'
         ],
       }
     ],
