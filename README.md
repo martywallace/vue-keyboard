@@ -113,3 +113,6 @@ Markup:
 ```
 
 This keeps the `input` value in the main application in sync with the value of the keyboard, limits that value to 16 characters and triggers the 'custom' function in the main application when the "custom" button in the keyboard is clicked.
+
+## License
+vue-keyboard is available under the [MIT license](https://tldrlegal.com/license/mit-license).
