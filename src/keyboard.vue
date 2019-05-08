@@ -1,8 +1,9 @@
 <template>
   <aside class="vue-keyboard" role="application" :class="{ full: full, empty: empty, valid: valid, invalid: !valid }" :data-value="value" :data-layout="layout">
-    <div role="row" class="vue-keyboard-row" v-for="row in buttons" :data-keys="row.length">
+    <div role="row" class="vue-keyboard-row" v-for="(row, rowIndex) in buttons" :key="rowIndex" :data-keys="row.length">
       <button
-        v-for="btn in row"
+        v-for="(btn, btnIndex) in row"
+        :key="btnIndex"
         class="vue-keyboard-key"
         role="button"
         :class="btn.type"
@@ -11,7 +12,11 @@
         :data-action="btn.action.name"
         @click.prevent="btn.action.callable"
         @mousedown.prevent=""
-      >{{ btn.value }}</button>
+      >
+        <slot :name="btn.action.name || btn.value">
+          {{ btn.value }}
+        </slot>
+      </button>
     </div>
   </aside>
 </template>
