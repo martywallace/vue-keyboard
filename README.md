@@ -10,7 +10,7 @@ $ npm install --save vue-keyboard
 
 ## Resources:
 
-* [Guide](https://blog.martywallace.com/guides/vue-keyboard-usage-guide).
+* [Guide](https://blog.martywallace.com/vue-keyboard-usage-guide).
 
 ## Usage:
 
